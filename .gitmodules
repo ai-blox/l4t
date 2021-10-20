@@ -1,0 +1,3 @@
+[submodule "sources/u-boot"]
+	path = sources/u-boot
+	url = git@github.com:ai-blox/l4t-u-boot.git
