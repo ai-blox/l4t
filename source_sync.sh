@@ -60,25 +60,25 @@ SCRIPT_NAME=`basename $0`
 # info about sources.
 # NOTE: *Add only kernel repos here. Add new repos separately below. Keep related repos together*
 SOURCE_INFO="
-k:kernel/kernel-4.9:nv-tegra.nvidia.com/linux-4.9.git:
-k:kernel/nvgpu:nv-tegra.nvidia.com/linux-nvgpu.git:
-k:kernel/nvidia:nv-tegra.nvidia.com/linux-nvidia.git:
-k:hardware/nvidia/soc/t18x:nv-tegra.nvidia.com/device/hardware/nvidia/soc/t18x.git:
-k:hardware/nvidia/platform/tegra/common:nv-tegra.nvidia.com/device/hardware/nvidia/platform/tegra/common.git:
-k:hardware/nvidia/platform/t18x/common:nv-tegra.nvidia.com/device/hardware/nvidia/platform/t18x/common.git:
-k:hardware/nvidia/platform/t18x/quill:nv-tegra.nvidia.com/device/hardware/nvidia/platform/t18x/quill.git:
-k:hardware/nvidia/soc/t210:nv-tegra.nvidia.com/device/hardware/nvidia/soc/t210.git:
-k:hardware/nvidia/platform/t210/common:nv-tegra.nvidia.com/device/hardware/nvidia/platform/t210/common.git:
-k:hardware/nvidia/platform/t210/jetson:nv-tegra.nvidia.com/device/hardware/nvidia/platform/t210/jetson.git:
-k:hardware/nvidia/platform/t210/porg:nv-tegra.nvidia.com/device/hardware/nvidia/platform/t210/porg.git:
-k:hardware/nvidia/soc/t19x:nv-tegra.nvidia.com/device/hardware/nvidia/soc/t19x.git:
-k:hardware/nvidia/platform/t19x/common:nv-tegra.nvidia.com/device/hardware/nvidia/platform/t19x/common.git:
-k:hardware/nvidia/platform/t19x/galen/kernel-dts:nv-tegra.nvidia.com/device/hardware/nvidia/platform/t19x/stardust-dts.git:
-k:hardware/nvidia/platform/t19x/jakku/kernel-dts:nv-tegra.nvidia.com/device/hardware/nvidia/platform/t19x/jakku-dts.git:
-k:hardware/nvidia/soc/tegra:nv-tegra.nvidia.com/device/hardware/nvidia/soc/tegra.git:
+k:kernel/kernel-4.9:/l4t-kernel-kernel-4.9.git:
+k:kernel/nvgpu:/l4t-kernel-nvgpu.git:
+k:kernel/nvidia:/l4t-kernel-nvidia.git:
+k:hardware/nvidia/soc/t18x:/l4t-hardware-nvidia-soc-t18x.git:
+k:hardware/nvidia/platform/tegra/common:/l4t-hardware-nvidia-platform-tegra-common.git:
+k:hardware/nvidia/platform/t18x/common:/l4t-hardware-nvidia-platform-t18x-common.git:
+k:hardware/nvidia/platform/t18x/quill:/l4t-hardware-nvidia-platform-t18x-quill.git:
+k:hardware/nvidia/soc/t210:/l4t-hardware-nvidia-soc-t210.git:
+k:hardware/nvidia/platform/t210/common:/l4t-hardware-nvidia-platform-t210-common.git:
+k:hardware/nvidia/platform/t210/jetson:/l4t-hardware-nvidia-platform-t210-jetson.git
+k:hardware/nvidia/platform/t210/porg:/l4t-hardware-nvidia-platform-t210-porg.git:
+k:hardware/nvidia/soc/t19x:/l4t-hardware-nvidia-soc-t19x.git:
+k:hardware/nvidia/platform/t19x/common:/l4t-hardware-nvidia-platform-t19x-common.git:
+k:hardware/nvidia/platform/t19x/galen/kernel-dts:/l4t-hardware-nvidia-platform-t19x-galen-kernel-dts.git:
+k:hardware/nvidia/platform/t19x/jakku/kernel-dts:/l4t-hardware-nvidia-platform-t19x-jakku-kernel-dts.git:
+k:hardware/nvidia/soc/tegra:/l4t-hardware-nvidia-soc-tegra.git:
 "
 SOURCE_INFO+="
-u:u-boot:nv-tegra.nvidia.com/3rdparty/u-boot.git:
+u:u-boot:/l4t-u-boot.git
 "
 
 # exit on error on sync
@@ -320,7 +320,7 @@ for ((i=0; i < NSOURCES; i++)); do
 	DNLOAD=$(echo "${SOURCE_INFO_PROCESSED[i]}" | cut -f 5 -d ':')
 
 	if [ $DALL -eq 1 -o "x${DNLOAD}" == "xy" ]; then
-		DownloadAndSync "$WHAT" "${LDK_DIR}/${WHAT}" "git://${REPO}" "${TAG}" "${OPT}"
+		DownloadAndSync "$WHAT" "${LDK_DIR}/${WHAT}" "git@github.com:ai-blox${REPO}" "${TAG}" "${OPT}"
 		tRET=$?
 		let GRET=GRET+tRET
 		if [ $tRET -ne 0 -a $EOE -eq 1 ]; then
